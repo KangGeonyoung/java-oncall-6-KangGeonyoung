@@ -15,10 +15,28 @@ public class Member {
         InputValidator.isNull(input);
         InputValidator.isEmptyOrBlank(input);
         List<String> inputMember = convertMember(input);
+
+        isValidType(inputMember);
         isDistinctMember(inputMember);
         isExceedNameLength(inputMember);
 
         return inputMember;
+    }
+
+    private static void isValidType(List<String> inputMember) {
+        for (int i = 0; i < inputMember.size(); i++) {
+            String word = inputMember.get(i);
+            isLetter(word);
+        }
+    }
+
+    private static void isLetter(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            char digit = word.charAt(i);
+            if (Character.isDigit(digit) == true) {
+                throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
+            }
+        }
     }
 
     private static void isExceedNameLength(List<String> inputMember) {
