@@ -23,14 +23,15 @@ public class EmergencyWorkAssignment {
         this.day = day;
     }
 
-    public static void startWorkAssignment(int month, String day) {
+    public static List<String> startWorkAssignment(int month, String day) {
         // 평일일때 평일 사원 명단에서 추출
         assignWhenWeekday(month, day);
 
         // 휴일 일때 휴일 사원 명단에서 추출
         assignWhenHoliday(day);
-    }
 
+        return finalAssignmentResult;
+    }
 
 
     // 평일 배정
