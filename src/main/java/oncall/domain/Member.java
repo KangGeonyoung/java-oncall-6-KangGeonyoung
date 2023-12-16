@@ -16,8 +16,17 @@ public class Member {
         InputValidator.isEmptyOrBlank(input);
         List<String> inputMember = convertMember(input);
         isDistinctMember(inputMember);
+        isExceedNameLength(inputMember);
 
         return inputMember;
+    }
+
+    private static void isExceedNameLength(List<String> inputMember) {
+        for (int i = 0; i < inputMember.size(); i++) {
+            if (inputMember.get(i).length() > 5) {
+                throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
+            }
+        }
     }
 
     private static void isDistinctMember(List<String> inputMember) {
