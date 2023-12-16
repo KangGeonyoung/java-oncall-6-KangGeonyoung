@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmergencyWorkAssignment {
-
+    private static List<String> dayOfWeek = new ArrayList<>(List.of("일", "월", "화", "수", "목", "금", "토"));
     private static List<String> weekdayMember;
     private static List<String> holidayMember;
     private static List<String> finalAssignmentResult;
@@ -23,27 +23,44 @@ public class EmergencyWorkAssignment {
         this.day = day;
     }
 
-    public static List<String> startWorkAssignment(int month, String day) {
-        // 평일일때 평일 사원 명단에서 추출
-        assignWhenWeekday(month, day);
-
-        // 휴일 일때 휴일 사원 명단에서 추출
-        assignWhenHoliday(day);
-
+    public static List<String> startWorkAssignment() {
+        // 해당 월의 마지막 날이 올 때까지
+        while (!isEndAssignment()) {
+            if (Date.isWeekday(day)) {
+                assignWhenWeekday(month);
+            }
+            if (!Date.isWeekday(day)) {
+                assignWhenHoliday(month);
+            }
+            changeNextDate();
+        }
         return finalAssignmentResult;
+    }
+
+    private static void changeNextDate() {
+        date += 1;
+        day = moveNextDay(day);
+    }
+
+    private static String moveNextDay(String day) {
+        int currentDayIdx = dayOfWeek.indexOf(day);
+        currentDayIdx += 1;
+        if (currentDayIdx == 7) {
+            currentDayIdx = 0;
+        }
+        day = dayOfWeek.get(currentDayIdx);
+        return day;
     }
 
 
     // 평일 배정
-    private static void assignWhenWeekday(int month, String day) {
-        if (Date.isWeekday(day)) {
-            // 평일인데 공휴일인 경우
-            if (Date.isHoliday(month, date)) {
-                assignHolidayMember();
-                return;
-            }
-            assignWeekdayMember();
+    private static void assignWhenWeekday(int month) {
+        // 평일인데 공휴일인 경우
+        if (Date.isHoliday(month, date)) {
+            assignHolidayMember();
+            return;
         }
+        assignWeekdayMember();
     }
 
     private static void assignWeekdayMember() {
@@ -64,10 +81,8 @@ public class EmergencyWorkAssignment {
 
 
     // 휴일 배정
-    private static void assignWhenHoliday(String day) {
-        if (!Date.isWeekday(day)) {
-            assignHolidayMember();
-        }
+    private static void assignWhenHoliday(int month) {
+        assignHolidayMember();
     }
 
     private static void assignHolidayMember() {
@@ -94,9 +109,9 @@ public class EmergencyWorkAssignment {
         }
     }
 
-    public boolean isEndAssignment(int date) {
+    public static boolean isEndAssignment() {
         int lastDate = Date.getLastDateOfMonth(month);
-        if (date == lastDate) {
+        if (date == lastDate + 1) {
             return true;
         }
         return false;
