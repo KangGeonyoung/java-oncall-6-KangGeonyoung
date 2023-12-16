@@ -33,4 +33,22 @@ public class Date {
         List<String> date = Stream.of(input.split(",")).collect(Collectors.toList());
         return date;
     }
+
+    public int getLastDateOfMonth(int month) {
+        List<Integer> twentyEightMonth = new ArrayList<>(List.of(2));
+        List<Integer> thirtyMonth = new ArrayList<>(List.of(4, 6, 9, 11));
+        List<Integer> thirtyOneMonth = new ArrayList<>(List.of(1, 3, 5, 7, 8, 10, 12));
+        int lastDate = 0;
+
+        if (twentyEightMonth.contains(month)) {
+            lastDate = 28;
+        }
+        if (thirtyMonth.contains(month)) {
+            lastDate = 30;
+        }
+        if (thirtyOneMonth.contains(month)) {
+            lastDate = 31;
+        }
+        return lastDate;
+    }
 }
