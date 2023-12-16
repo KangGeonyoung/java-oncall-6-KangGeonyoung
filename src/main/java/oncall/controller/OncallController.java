@@ -20,6 +20,10 @@ public class OncallController {
     private static List<String> holidayMember;
 
     private static List<String> finalResult;
+    private static int month;
+    private static int date;
+    private static String day;
+
 
     public OncallController() {
         this.dateSystem = new Date();
@@ -27,14 +31,18 @@ public class OncallController {
         weekdayMember = new ArrayList<>();
         holidayMember = new ArrayList<>();
         finalResult = new ArrayList<>();
+        date = 1;
     }
 
     public void start() {
         inputDate();
-        int month = dateSystem.getMonth();
-        String day = dateSystem.getDay();
-        int date = 1;
+        month = dateSystem.getMonth();
+        day = dateSystem.getDay();
         inputWeekdayMember();
+        startWorkAssignment(month, day, date);
+    }
+
+    private void startWorkAssignment(int month, String day, int date) {
         assignmentSystem = new EmergencyWorkAssignment(weekdayMember, holidayMember, month, day);
         List<String> finalAssignmentResult = assignmentSystem.startWorkAssignment();
         printWorkAssignmentResult(month, date, day, finalAssignmentResult);
