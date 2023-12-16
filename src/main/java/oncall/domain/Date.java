@@ -11,6 +11,8 @@ import java.util.stream.Stream;
 public class Date {
 
     private static List<String> dayOfWeek = new ArrayList<>(List.of("일", "월", "화", "수", "목", "금", "토"));
+    private static List<String> dayOfWeekday = new ArrayList<>(List.of("월", "화", "수", "목", "금"));
+    private static List<String> dayOfWeekend = new ArrayList<>(List.of("토", "일"));
     private static int month;
     private static String day;
 
@@ -50,5 +52,12 @@ public class Date {
             lastDate = 31;
         }
         return lastDate;
+    }
+
+    public boolean isWeekday(int day) {
+        if (dayOfWeekday.contains(day)) {
+            return true;
+        }
+        return false;
     }
 }
