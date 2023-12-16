@@ -15,8 +15,16 @@ public class Member {
         InputValidator.isNull(input);
         InputValidator.isEmptyOrBlank(input);
         List<String> inputMember = convertMember(input);
+        isDistinctMember(inputMember);
 
         return inputMember;
+    }
+
+    private static void isDistinctMember(List<String> inputMember) {
+        Set<String> distinctMember = new HashSet<>(inputMember);
+        if (inputMember.size() != distinctMember.size()) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
+        }
     }
 
     public static List<String> convertMember(String input) {
