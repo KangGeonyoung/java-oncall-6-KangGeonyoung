@@ -23,11 +23,18 @@ public class Date {
             InputValidator.isEmptyOrBlank(input);
             List<String> date = convertDate(input);
             month = Integer.parseInt(date.get(0));
+            isValidRangeMonth();
             day = date.get(1);
             if (!dayOfWeek.contains(day)) {
                 throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
             }
         } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
+        }
+    }
+
+    private static void isValidRangeMonth() {
+        if (month < 1 || month > 12) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
         }
     }
