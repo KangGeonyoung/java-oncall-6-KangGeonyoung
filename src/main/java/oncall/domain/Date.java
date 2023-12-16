@@ -17,7 +17,7 @@ public class Date {
     private static int month;
     private static String day;
 
-    public static void isValidDate(String input) {
+    public void isValidDate(String input) {
         try {
             InputValidator.isNull(input);
             InputValidator.isEmptyOrBlank(input);
@@ -68,5 +68,13 @@ public class Date {
             return true;
         }
         return false;
+    }
+
+    public static int getMonth() {
+        return month;
+    }
+
+    public static String getDay() {
+        return day;
     }
 }
