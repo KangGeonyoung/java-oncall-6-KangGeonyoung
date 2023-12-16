@@ -36,7 +36,7 @@ public class Date {
         return date;
     }
 
-    public int getLastDateOfMonth(int month) {
+    public static int getLastDateOfMonth(int month) {
         List<Integer> twentyEightMonth = new ArrayList<>(List.of(2));
         List<Integer> thirtyMonth = new ArrayList<>(List.of(4, 6, 9, 11));
         List<Integer> thirtyOneMonth = new ArrayList<>(List.of(1, 3, 5, 7, 8, 10, 12));
@@ -54,7 +54,7 @@ public class Date {
         return lastDate;
     }
 
-    public boolean isWeekday(int day) {
+    public static boolean isWeekday(String day) {
         if (dayOfWeekday.contains(day)) {
             return true;
         }
