@@ -13,6 +13,7 @@ public class Date {
     private static List<String> dayOfWeek = new ArrayList<>(List.of("일", "월", "화", "수", "목", "금", "토"));
     private static List<String> dayOfWeekday = new ArrayList<>(List.of("월", "화", "수", "목", "금"));
     private static List<String> dayOfWeekend = new ArrayList<>(List.of("토", "일"));
+    private static List<String> dayOfHoliday = new ArrayList<>(List.of("1/1", "3/1", "5/5", "6/6", "8/15", "10/3", "10/9", "12/25"));
     private static int month;
     private static String day;
 
@@ -56,6 +57,14 @@ public class Date {
 
     public static boolean isWeekday(String day) {
         if (dayOfWeekday.contains(day)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isHoliday(int month, int date) {
+        String compareDay = month + "/" + date;
+        if (dayOfHoliday.contains(compareDay)) {
             return true;
         }
         return false;
