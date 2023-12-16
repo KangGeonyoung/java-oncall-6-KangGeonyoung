@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 public class Member {
 
-    public static List<String> isValidMember(String input) {
+    public List<String> isValidMember(String input) {
         InputValidator.isNull(input);
         InputValidator.isEmptyOrBlank(input);
         List<String> inputMember = convertMember(input);

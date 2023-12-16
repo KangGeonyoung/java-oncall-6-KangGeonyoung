@@ -70,11 +70,11 @@ public class Date {
         return false;
     }
 
-    public static int getMonth() {
+    public int getMonth() {
         return month;
     }
 
-    public static String getDay() {
+    public String getDay() {
         return day;
     }
 }
