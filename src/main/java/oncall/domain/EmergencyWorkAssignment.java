@@ -7,23 +7,31 @@ import java.util.List;
 
 public class EmergencyWorkAssignment {
     private static List<String> dayOfWeek = new ArrayList<>(List.of("일", "월", "화", "수", "목", "금", "토"));
-    private static List<String> weekdayMember;
-    private static List<String> holidayMember;
-    private static List<String> finalAssignmentResult;
+    private static List<String> weekdayMember = new ArrayList<>();
+    private static List<String> holidayMember = new ArrayList<>();
+    private static int memberNumber;
+    private static List<String> finalAssignmentResult = new ArrayList<>();
+    ;
     private static int month;
     private static int date;
     private static String day;
+    private static int currentPosition_weekday;
+    private static int currentPosition_holiday;
 
-    public EmergencyWorkAssignment(List<String> weekdayMember, List<String> holidayMember, int month, String day) {
-        this.weekdayMember = weekdayMember;
-        this.holidayMember = holidayMember;
-        this.finalAssignmentResult = new ArrayList<>();
+    public EmergencyWorkAssignment(List<String> newWeekdayMember, List<String> newHolidayMember, int month, String day) {
+        weekdayMember.addAll(newWeekdayMember);
+        holidayMember.addAll(newHolidayMember);
         this.month = month;
         this.date = 1;
         this.day = day;
+        currentPosition_weekday = 0;
+        currentPosition_holiday = 0;
+        memberNumber = 0;
     }
 
-    public static List<String> startWorkAssignment() {
+    public List<String> startWorkAssignment() {
+        isAssignedOnce(weekdayMember, holidayMember);
+
         // 해당 월의 마지막 날이 올 때까지
         while (!isEndAssignment()) {
             if (Date.isWeekday(day)) {
@@ -64,19 +72,25 @@ public class EmergencyWorkAssignment {
     }
 
     private static void assignWeekdayMember() {
-        String previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
+        String previousWorkMember = "";
+        if (finalAssignmentResult.size() != 0) {
+            previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
+        }
         // 연속 2일 근무자라면
-        if (previousWorkMember == weekdayMember.get(0)) {
+        if (previousWorkMember.equals(weekdayMember.get(currentPosition_weekday))) {
             replaceMemberInWeekday();
         }
-        finalAssignmentResult.add(weekdayMember.get(0));
-        weekdayMember.remove(0);
+        finalAssignmentResult.add(weekdayMember.get(currentPosition_weekday));
+        currentPosition_weekday += 1;
+        if (currentPosition_weekday == memberNumber) {
+            currentPosition_weekday = 0;
+        }
     }
 
     private static void replaceMemberInWeekday() {
-        String currentMember = weekdayMember.get(0);
-        weekdayMember.set(0, weekdayMember.get(1));
-        weekdayMember.set(1, currentMember);
+        String currentMember = weekdayMember.get(currentPosition_weekday);
+        weekdayMember.set(currentPosition_weekday, weekdayMember.get(currentPosition_weekday + 1));
+        weekdayMember.set(currentPosition_weekday + 1, currentMember);
     }
 
 
@@ -86,19 +100,25 @@ public class EmergencyWorkAssignment {
     }
 
     private static void assignHolidayMember() {
-        String previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
+        String previousWorkMember = "";
+        if (finalAssignmentResult.size() != 0) {
+            previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
+        }
         // 연속 2일 근무자라면
-        if (previousWorkMember == holidayMember.get(0)) {
+        if (previousWorkMember.equals(holidayMember.get(currentPosition_holiday))) {
             replaceMemberInHoliday();
         }
-        finalAssignmentResult.add(holidayMember.get(0));
-        holidayMember.remove(0);
+        finalAssignmentResult.add(holidayMember.get(currentPosition_holiday));
+        currentPosition_holiday += 1;
+        if (currentPosition_holiday == memberNumber) {
+            currentPosition_holiday = 0;
+        }
     }
 
     private static void replaceMemberInHoliday() {
-        String currentMember = holidayMember.get(0);
-        holidayMember.set(0, holidayMember.get(1));
-        holidayMember.set(1, currentMember);
+        String currentMember = holidayMember.get(currentPosition_holiday);
+        holidayMember.set(currentPosition_holiday, holidayMember.get(currentPosition_holiday + 1));
+        holidayMember.set(currentPosition_holiday + 1, currentMember);
     }
 
     public static void isAssignedOnce(List<String> weekdayMember, List<String> holidayMember) {
@@ -107,6 +127,7 @@ public class EmergencyWorkAssignment {
                 throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
             }
         }
+        memberNumber = weekdayMember.size();
     }
 
     public static boolean isEndAssignment() {
