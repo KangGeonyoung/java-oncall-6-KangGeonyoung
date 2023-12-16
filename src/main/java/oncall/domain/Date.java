@@ -12,7 +12,6 @@ public class Date {
 
     private static List<String> dayOfWeek = new ArrayList<>(List.of("일", "월", "화", "수", "목", "금", "토"));
     private static List<String> dayOfWeekday = new ArrayList<>(List.of("월", "화", "수", "목", "금"));
-    private static List<String> dayOfWeekend = new ArrayList<>(List.of("토", "일"));
     private static List<String> dayOfHoliday = new ArrayList<>(List.of("1/1", "3/1", "5/5", "6/6", "8/15", "10/3", "10/9", "12/25"));
     private static int month;
     private static String day;
@@ -49,7 +48,6 @@ public class Date {
         List<Integer> thirtyMonth = new ArrayList<>(List.of(4, 6, 9, 11));
         List<Integer> thirtyOneMonth = new ArrayList<>(List.of(1, 3, 5, 7, 8, 10, 12));
         int lastDate = 0;
-
         if (twentyEightMonth.contains(month)) {
             lastDate = 28;
         }

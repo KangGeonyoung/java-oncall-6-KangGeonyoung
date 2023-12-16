@@ -76,7 +76,6 @@ public class EmergencyWorkAssignment {
         if (finalAssignmentResult.size() != 0) {
             previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
         }
-        // 연속 2일 근무자라면
         if (previousWorkMember.equals(weekdayMember.get(currentPosition_weekday))) {
             replaceMemberInWeekday();
         }
@@ -104,7 +103,6 @@ public class EmergencyWorkAssignment {
         if (finalAssignmentResult.size() != 0) {
             previousWorkMember = finalAssignmentResult.get(finalAssignmentResult.size() - 1);
         }
-        // 연속 2일 근무자라면
         if (previousWorkMember.equals(holidayMember.get(currentPosition_holiday))) {
             replaceMemberInHoliday();
         }

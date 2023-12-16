@@ -15,11 +15,9 @@ public class Member {
         InputValidator.isNull(input);
         InputValidator.isEmptyOrBlank(input);
         List<String> inputMember = convertMember(input);
-
         isValidType(inputMember);
         isDistinctMember(inputMember);
         isExceedNameLength(inputMember);
-
         return inputMember;
     }
 
