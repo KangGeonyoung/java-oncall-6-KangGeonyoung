@@ -32,11 +32,12 @@ public class EmergencyWorkAssignment {
     }
 
 
-    private static void assignWhenHoliday(String day) {
-        if (!Date.isWeekday(day)) {
-            finalAssignmentResult.add(holidayMember.get(0));
-            holidayMember.remove(0);
+    public boolean isEndAssignment(int date) {
+        int lastDate = Date.getLastDateOfMonth(month);
+        if (date == lastDate) {
+            return true;
         }
+        return false;
     }
 
     private static void assignWhenWeekday(int month, String day) {
@@ -49,6 +50,13 @@ public class EmergencyWorkAssignment {
             }
             finalAssignmentResult.add(weekdayMember.get(0));
             weekdayMember.remove(0);
+        }
+    }
+
+    private static void assignWhenHoliday(String day) {
+        if (!Date.isWeekday(day)) {
+            finalAssignmentResult.add(holidayMember.get(0));
+            holidayMember.remove(0);
         }
     }
 
